@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "social-network", "social-network\social-network.csproj", "{71F2C57A-2768-4398-9D7C-E5FE84A4752F}"
+EndProject
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{6CDB9B92-6032-4F80-A69F-4EFF504EC9D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CDB9B92-6032-4F80-A69F-4EFF504EC9D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6CDB9B92-6032-4F80-A69F-4EFF504EC9D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{71F2C57A-2768-4398-9D7C-E5FE84A4752F}.Debug|x86.ActiveCfg = Debug|x86
+		{71F2C57A-2768-4398-9D7C-E5FE84A4752F}.Debug|x86.Build.0 = Debug|x86
+		{71F2C57A-2768-4398-9D7C-E5FE84A4752F}.Release|x86.ActiveCfg = Release|x86
+		{71F2C57A-2768-4398-9D7C-E5FE84A4752F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = social-network\social-network.csproj
+	EndGlobalSection
+EndGlobal
