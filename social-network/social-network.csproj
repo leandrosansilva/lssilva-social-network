@@ -9,7 +9,6 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>socialnetwork</RootNamespace>
     <AssemblyName>social-network</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +38,13 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="CommandFactory.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Commands\CreateUserCommand.cs" />
+    <Compile Include="Commands\ErrorCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
 </Project>

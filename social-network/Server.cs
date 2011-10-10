@@ -22,14 +22,19 @@ namespace socialnetwork
         
         NetworkStream stream = client.GetStream();
         
-        string dataFromClient = new StreamReader(stream).ReadLine();
+        StreamReader reader = new StreamReader(stream,Encoding.UTF8);
+        StreamWriter writer = new StreamWriter(stream,Encoding.UTF8);
         
-        Console.WriteLine(dataFromClient);
-        Console.WriteLine(dataFromClient.Length);
-
-        Byte[] sendBytes = Encoding.UTF8.GetBytes("Hello World");
-
-        stream.Write(sendBytes,0,sendBytes.Length);
+        string clientInput = reader.ReadLine();
+        
+        Command command = CommandFactory.create(clientInput);
+        
+        command.execute();
+        
+        Console.WriteLine(command.output());
+        
+        // FIXME: isto não funciona. Não consegue enviar o segmento tcp
+        writer.WriteLine("Hello World");
       }
     }
   }
