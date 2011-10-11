@@ -2,12 +2,11 @@ using System;
 
 namespace socialnetwork
 {
-  public class ErrorCommand: Command
+  public class StopFollowingCommand: Command
   {
-    public ErrorCommand(string command)
+    public StopFollowingCommand(string command)
     {
     }
-    
     public string execute()
     {
       return "ok";

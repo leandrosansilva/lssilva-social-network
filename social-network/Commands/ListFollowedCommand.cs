@@ -2,9 +2,9 @@ using System;
 
 namespace socialnetwork
 {
-  public class ErrorCommand: Command
+  public class ListFollowedCommand: Command
   {
-    public ErrorCommand(string command)
+    public ListFollowedCommand(string command)
     {
     }
     

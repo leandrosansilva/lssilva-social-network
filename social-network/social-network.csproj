@@ -42,6 +42,16 @@
     <Compile Include="Command.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
     <Compile Include="Commands\ErrorCommand.cs" />
+    <Compile Include="Commands\ListUserMessagesCommand.cs" />
+    <Compile Include="Commands\PostMessageCommand.cs" />
+    <Compile Include="Commands\ListFollowersCommand.cs" />
+    <Compile Include="Commands\FollowCommand.cs" />
+    <Compile Include="Commands\ListFollowedCommand.cs" />
+    <Compile Include="Commands\StopFollowingCommand.cs" />
+    <Compile Include="Commands\ListFollowedMessages.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="ClientHandler.cs" />
+    <Compile Include="Message.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

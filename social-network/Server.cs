@@ -9,6 +9,9 @@ namespace socialnetwork
   public class Server
   {
     private TcpListener _serverListener;
+    
+    private ClientHandler _handler = new ClientHandler();
+    
     public Server(int port)
     {
       _serverListener = new TcpListener(IPAddress.Parse("127.0.0.1"),port);
@@ -29,11 +32,9 @@ namespace socialnetwork
         
         Command command = CommandFactory.create(clientInput);
         
-        command.execute();
+        _handler.handle(command,reader,writer);
         
-        Console.WriteLine(command.output());
-        
-        // FIXME: isto não funciona. Não consegue enviar o segmento tcp
+        // FIXME: isto não funciona. Não consegue enviar o(s) segmento(s) tcp
         writer.WriteLine("Hello World");
       }
     }

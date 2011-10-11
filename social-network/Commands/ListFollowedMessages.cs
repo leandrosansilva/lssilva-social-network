@@ -2,12 +2,11 @@ using System;
 
 namespace socialnetwork
 {
-  public class ErrorCommand: Command
+  public class ListFollowedMessages: Command
   {
-    public ErrorCommand(string command)
+    public ListFollowedMessages (string command)
     {
     }
-    
     public string execute()
     {
       return "ok";
