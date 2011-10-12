@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Executor.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Command.cs" />

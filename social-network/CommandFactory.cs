@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace socialnetwork
 {
@@ -10,8 +11,11 @@ namespace socialnetwork
     
     static public Command create(string commandInput)
     {
+      // FIXME: usar uma regexp para esxtrair comando e parametros
+
       // obtenho o comando passado
       string key = "";
+
       int i = 0;
       for (;i < commandInput.Length && commandInput[i] != ' '; i++) {
         key += commandInput[i];
@@ -38,7 +42,6 @@ namespace socialnetwork
           return new UnfollowCommand(payload);
         case "listar-mensagens-seguidos":
           return new ListFollowedMessages(payload);
-        break;
       }
       
       // um comando de erro
