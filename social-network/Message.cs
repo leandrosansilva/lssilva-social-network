@@ -39,11 +39,6 @@ namespace socialnetwork
   
   }
   
-  public class InvalidMessageUser: Exception
-  {
-  
-  }
-  
   static public class Messages
   {
     static private System.Collections.Generic.List<Message> _messages

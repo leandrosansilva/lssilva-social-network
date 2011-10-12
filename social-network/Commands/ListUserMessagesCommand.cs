@@ -23,7 +23,7 @@ namespace socialnetwork
         }
 
         return output;
-        
+
       } catch (InvalidUserName) {
         return "usuario-invalido";
       }

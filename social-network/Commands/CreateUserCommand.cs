@@ -15,7 +15,7 @@ namespace socialnetwork
     {
       try {
         // adiciona o usuário em minúsculo, para os nomes não serem case-sensitive
-        Users.add(_command.ToLower());
+        Users.add(_command);
         return "ok";
       } catch (UserAlreadExists) {
         return "usuario-ja-existe";

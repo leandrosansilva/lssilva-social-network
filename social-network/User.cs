@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace socialnetwork
 {
@@ -59,7 +60,9 @@ namespace socialnetwork
     static public void add(string userName)
     {
       lock(typeof(Users)) {
-        if (userName.Length > 20 || userName.Length < 3) {
+
+        // entre 3 e 20 chars, só com letras ou números
+        if (!Regex.IsMatch(userName,@"^\w{3,20}$")) {
           throw new InvalidUserName();
         }
         
