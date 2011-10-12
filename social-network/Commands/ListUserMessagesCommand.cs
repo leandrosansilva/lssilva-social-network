@@ -4,13 +4,29 @@ namespace socialnetwork
 {
   public class ListUserMessagesCommand: Command
   {
-    public ListUserMessagesCommand(string command)
+    private string _user = null;
+
+    public ListUserMessagesCommand(string user)
     {
+      _user = user;
     }
-    
+
     public string execute()
     {
-      return "ok";
+      try {
+        System.Collections.Generic.List<Message> messages = Users.getMessages(_user);
+
+        string output = "";
+
+        foreach (Message message in messages) {
+          output += message.content + "\n";
+        }
+
+        return output;
+        
+      } catch (InvalidUserName) {
+        return "usuario-invalido";
+      }
     }
   }
 }

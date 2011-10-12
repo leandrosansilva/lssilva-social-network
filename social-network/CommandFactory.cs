@@ -20,7 +20,7 @@ namespace socialnetwork
       // o que foi passado, sem o comando, só os dados
       string payload = commandInput.Substring(i).TrimStart();
       
-      // splitted[0] guarda o comando a ser executado
+      // TODO: mudar este switch para um mapa chave -> classe
       switch (key) {
         case "criar-usuario":
           return new CreateUserCommand(payload);
@@ -35,7 +35,7 @@ namespace socialnetwork
         case "listar-seguidos":
           return new ListFollowedCommand(payload);
         case "deixar-de-seguir":
-          return new StopFollowingCommand(payload);
+          return new UnfollowCommand(payload);
         case "listar-mensagens-seguidos":
           return new ListFollowedMessages(payload);
         break;

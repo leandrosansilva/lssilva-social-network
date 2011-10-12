@@ -47,11 +47,12 @@
     <Compile Include="Commands\ListFollowersCommand.cs" />
     <Compile Include="Commands\FollowCommand.cs" />
     <Compile Include="Commands\ListFollowedCommand.cs" />
-    <Compile Include="Commands\StopFollowingCommand.cs" />
     <Compile Include="Commands\ListFollowedMessages.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ClientHandler.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="HashTag.cs" />
+    <Compile Include="Commands\UnfollowCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

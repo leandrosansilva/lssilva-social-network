@@ -10,7 +10,7 @@ namespace socialnetwork
     
     public string execute()
     {
-      return "ok";
+      return "commando-invalido";
     }
   }
 }

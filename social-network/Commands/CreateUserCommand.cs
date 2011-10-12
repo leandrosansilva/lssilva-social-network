@@ -14,13 +14,13 @@ namespace socialnetwork
     public string execute()
     {
       try {
-      	// adiciona o usuário em minúsculo, para os nomes não serem case-sensitive
-      	Users.add(_command.ToLower());
-      	return "ok";
-      } catch (UserAlreadExists e) {
-      	return "usuario-ja-existe";
-      } catch(InvalidUserName e) {
-      	return "nome-invalido";
+        // adiciona o usuário em minúsculo, para os nomes não serem case-sensitive
+        Users.add(_command.ToLower());
+        return "ok";
+      } catch (UserAlreadExists) {
+        return "usuario-ja-existe";
+      } catch(InvalidUserName) {
+        return "nome-invalido";
       }
       
     }

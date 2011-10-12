@@ -2,9 +2,9 @@ using System;
 
 namespace socialnetwork
 {
-  public class StopFollowingCommand: Command
+  public class UnfollowCommand: Command
   {
-    public StopFollowingCommand(string command)
+    public UnfollowCommand(string command)
     {
     }
     public string execute()

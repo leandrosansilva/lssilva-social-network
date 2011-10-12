@@ -32,10 +32,7 @@ namespace socialnetwork
         
         Command command = CommandFactory.create(clientInput);
         
-        _handler.handle(command,reader,writer);
-        
-        // FIXME: isto não funciona. Não consegue enviar o(s) segmento(s) tcp
-        writer.WriteLine("Hello World");
+        _handler.handle(command,writer);
       }
     }
   }
