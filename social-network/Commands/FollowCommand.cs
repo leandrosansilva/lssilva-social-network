@@ -13,17 +13,12 @@ namespace socialnetwork
       Regex er = new Regex(@"^(\w+) +(.+)$");
       Match result = er.Match(command.TrimEnd());
 
-      Console.WriteLine(result.Groups.Count);
-
       if (!result.Success || result.Groups.Count != 3) {
         return;
       }
 
       _user = result.Groups[1].ToString();
       _following = result.Groups[2].ToString();
-
-      Console.WriteLine(_user);
-      Console.WriteLine(_following);
     }
     
     public string execute()
@@ -32,11 +27,13 @@ namespace socialnetwork
         Users.follow(_user,_following);
         return "ok";
       } catch (InvalidUserName) {
-        return "usuario-invalido";
-      } catch (InvalidFollowing) {
         return "seguidor-nao-encontrado";
+      } catch (InvalidFollowing) {
+        return "seguido-nao-encontrado";
       } catch (FollowingAlreadExists) {
         return "ja-seguindo";
+      } catch (UsersAreTheSame) {
+        return "seguidor-e-seguidos-sao-iguais";
       }
 
     }

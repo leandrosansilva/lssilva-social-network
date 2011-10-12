@@ -18,6 +18,17 @@ namespace socialnetwork
   public class FollowingAlreadExists: Exception
   {
   }
+  public class FollowingDoesNotExists: Exception
+  {
+  }
+
+  public class UsersAreTheSame: Exception
+  {
+  }
+
+  public class NotFollowing: Exception
+  {
+  }
 
   public class User
   {
@@ -132,6 +143,11 @@ namespace socialnetwork
         throw new InvalidFollowing();
       }
 
+      // se forem iguais, é erro!
+      if (userName == followName) {
+        throw new UsersAreTheSame();
+      }
+
       if (user.following.Contains(following)) {
         throw new FollowingAlreadExists();
       }
@@ -163,7 +179,42 @@ namespace socialnetwork
         throw new InvalidUserName();
       }
     }
+
+    static public void unfollow(string userName, string followName)
+    {
+      // FIXME: isso daqui é uma cópia do código de follow()!
+
+      User user = null;
+      User following = null;
+
+      try {
+        user = _users[userName];
+      } catch (System.Collections.Generic.KeyNotFoundException) {
+        throw new InvalidUserName();
+      } catch (ArgumentNullException) {
+        throw new InvalidUserName();
+      }
+
+      try {
+        following = _users[followName];
+      } catch (System.Collections.Generic.KeyNotFoundException) {
+        throw new InvalidFollowing();
+      } catch (ArgumentNullException) {
+        throw new InvalidFollowing();
+      }
+
+      // se forem iguais, é erro!
+      if (userName == followName) {
+        throw new UsersAreTheSame();
+      }
+
+      if (!user.following.Contains(following)) {
+        throw new FollowingDoesNotExists();
+      }
+
+      user.following.Remove(following);
+      following.followers.Remove(user);
+    }
   }
   
 }
-
