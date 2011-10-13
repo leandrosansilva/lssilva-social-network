@@ -30,9 +30,18 @@ namespace socialnetwork
       }
     }
 
+    public DateTime created
+    {
+      get {
+        return _created;
+      }
+    }
+
     private string _content = null;
 
     private User _user = null;
+
+    private DateTime _created = DateTime.Now;
 
     private System.Collections.Generic.List<HashTag> _hashTags
       = new System.Collections.Generic.List<HashTag>();
@@ -62,6 +71,7 @@ namespace socialnetwork
         User user = Users.addMessage(userName,message);
         message.user = user;
 
+        // FIXME: isto está errado, pois pega # no meio de palavras
         Regex re = new Regex(@"(#\w+)");
 
         MatchCollection match = re.Matches(content);

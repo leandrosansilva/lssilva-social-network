@@ -47,17 +47,18 @@
     <Compile Include="Commands\FollowCommand.cs" />
     <Compile Include="Commands\ListFollowedCommand.cs" />
     <Compile Include="Commands\ListFollowedMessages.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="ClientHandler.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="HashTag.cs" />
     <Compile Include="Commands\UnfollowCommand.cs" />
     <Compile Include="Commands\ListTendenciesCommand.cs" />
     <Compile Include="Commands\ListMessagesWithHashTagCommand.cs" />
     <Compile Include="Commands\UserStatsCommand.cs" />
+    <Compile Include="Models\HashTag.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Message.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

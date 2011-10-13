@@ -4,7 +4,7 @@ namespace socialnetwork
 {
   public class ListUserMessagesCommand: Command
   {
-    private string _user = null;
+    private string _user = "";
 
     public ListUserMessagesCommand(string user)
     {

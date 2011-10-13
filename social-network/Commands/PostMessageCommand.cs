@@ -4,8 +4,8 @@ namespace socialnetwork
 {
   public class PostMessageCommand: Command
   {
-    private string _userName;
-    private string _content;
+    private string _userName = "";
+    private string _content = "";
 
     public PostMessageCommand(string command)
     {

@@ -5,8 +5,8 @@ namespace socialnetwork
 {
   public class FollowCommand: Command
   {
-    private string _user;
-    private string _followed;
+    private string _user = "";
+    private string _followed = "";
 
     public FollowCommand(string command)
     {

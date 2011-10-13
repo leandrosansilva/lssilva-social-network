@@ -28,7 +28,16 @@ namespace socialnetwork
       {
         string output = _command.execute();
         Console.WriteLine(output);
-        _writer.WriteLine(output);
+
+        /* FIXME: gambiarra: se o último caractere da resposta for uma quebra de linha,
+         * usa write, para não duplicar a quebra de linha. Caso contrário, usa writeline
+        */
+        if (output.EndsWith("\n")) {
+          _writer.Write(output);
+        } else {
+          _writer.WriteLine(output);
+        }
+
         _writer.Flush();
 
         _writer.Close();

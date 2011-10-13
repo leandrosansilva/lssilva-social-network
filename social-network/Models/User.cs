@@ -267,6 +267,27 @@ namespace socialnetwork
         throw new InvalidUserName();
       }
     }
+
+    static public System.Collections.Generic.List<Message> getFollowerMessages(string userName)
+    {
+      System.Collections.Generic.List<Message> messages = new System.Collections.Generic.List<Message>();
+
+      User user = null;
+
+      try {
+        user = _users[userName];
+      } catch (System.Collections.Generic.KeyNotFoundException) {
+        throw new InvalidUserName();
+      } catch (ArgumentNullException) {
+        throw new InvalidUserName();
+      }
+
+      foreach (User follower in user.followed) {
+        messages.AddRange(follower.messages);
+      }
+
+      return messages;
+    }
   }
   
 }
