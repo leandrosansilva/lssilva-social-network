@@ -1,10 +1,50 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
+  public delegate Command CommandDelegate(string parameter);
+
   static public class CommandFactory
   {
+    static private Dictionary<string,CommandDelegate> _commandDelegate
+      = new Dictionary<string,CommandDelegate>() {
+      {"criar-usuario",delegate(string parameter) {
+        return new CreateUserCommand(parameter);
+      }},
+      {"listar-mensagens-usuario",delegate(string parameter) {
+          return new ListUserMessagesCommand(parameter);
+      }},
+      {"postar-mensagem",delegate(string parameter) {
+        return new PostMessageCommand(parameter);
+      }},
+      {"listar-seguidores",delegate(string parameter) {
+        return new ListFollowersCommand(parameter);
+      }},
+      {"seguir",delegate(string parameter) {
+        return new FollowCommand(parameter);
+      }},
+      {"listar-seguidos",delegate(string parameter) {
+        return new ListFollowedCommand(parameter);
+      }},
+      {"deixar-de-seguir",delegate(string parameter) {
+        return new UnfollowCommand(parameter);
+      }},
+      {"listar-mensagens-seguidos",delegate(string parameter) {
+        return new ListFollowedMessages(parameter);
+      }},
+      {"listar-tendencias",delegate(string parameter) {
+        return new ListTendenciesCommand();
+      }},
+      {"listar-mensagens-com-palavra-marcada",delegate(string parameter) {
+        return new ListMessagesWithHashTagCommand(parameter);
+      }},
+      {"listar-estatisticas-usuario",delegate(string parameter) {
+        return new UserStatsCommand(parameter);
+      }}
+    };
+
     static public Command create(string commandInput)
     {
       // FIXME: usar uma regexp para extrair comando e parametros
@@ -20,34 +60,12 @@ namespace socialnetwork
       // o que foi passado, sem o comando, só os dados
       string parameter = commandInput.Substring(i).TrimStart();
       
-      // TODO: mudar este switch para um mapa chave -> classe
-      switch (key) {
-        case "criar-usuario":
-          return new CreateUserCommand(parameter);
-        case "listar-mensagens-usuario":
-          return new ListUserMessagesCommand(parameter);
-        case "postar-mensagem":
-          return new PostMessageCommand(parameter);
-        case "listar-seguidores":
-          return new ListFollowersCommand(parameter);
-        case "seguir":
-          return new FollowCommand(parameter);
-        case "listar-seguidos":
-          return new ListFollowedCommand(parameter);
-        case "deixar-de-seguir":
-          return new UnfollowCommand(parameter);
-        case "listar-mensagens-seguidos":
-          return new ListFollowedMessages(parameter);
-        case "listar-tendencias":
-          return new ListTendenciesCommand();
-        case "listar-mensagens-com-palavra-marcada":
-          return new ListMessagesWithHashTagCommand(parameter);
-        case "listar-estatisticas-usuario":
-          return new UserStatsCommand(parameter);
+      try {
+        return _commandDelegate[key](parameter);
+      } catch (KeyNotFoundException) {
+        // um comando de erro
+        return new ErrorCommand(parameter);
       }
-      
-      // um comando de erro
-      return new ErrorCommand(parameter);
     }
   }
 }

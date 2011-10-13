@@ -92,8 +92,13 @@ namespace socialnetwork
         return -1 * h1.messages.Count.CompareTo(h2.messages.Count);
       });
 
-      // pega os count primeiros
-      return list.GetRange(0,count);
+      try {
+        // pega os count primeiros
+        return list.GetRange(0,count);
+      } catch (ArgumentException) {
+        // ou, caso exista menos hashs, a lista inteira
+        return list;
+      }
     }
   }
 }
