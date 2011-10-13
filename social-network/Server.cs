@@ -25,8 +25,8 @@ namespace socialnetwork
         
         NetworkStream stream = client.GetStream();
         
-        StreamReader reader = new StreamReader(stream,Encoding.UTF8);
-        StreamWriter writer = new StreamWriter(stream,Encoding.UTF8);
+        StreamReader reader = new StreamReader(stream,new UTF8Encoding(false));
+        StreamWriter writer = new StreamWriter(stream,new UTF8Encoding(false));
         
         string clientInput = reader.ReadLine();
 

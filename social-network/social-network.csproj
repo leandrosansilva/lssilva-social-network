@@ -55,6 +55,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Commands\ListFollowedMessagesCommand.cs" />
+    <Compile Include="Commands\ResetCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

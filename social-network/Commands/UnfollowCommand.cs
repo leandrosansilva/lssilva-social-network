@@ -31,7 +31,7 @@ namespace socialnetwork
       } catch (InvalidFollowed) {
         return "seguido-nao-encontrado";
       } catch (FollowedDoesNotExist) {
-        return "não-seguindo";
+        return "nao-seguindo";
       }
     }
   }

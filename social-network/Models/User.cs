@@ -125,7 +125,7 @@ namespace socialnetwork
       lock(typeof(Users)) {
 
         // nome do usuário entre 3 e 20 chars, só com letras ou números
-        if (!Regex.IsMatch(userName,@"^\w{3,20}$")) {
+        if (!Regex.IsMatch(userName,@"^\p{L}{3,20}$")) {
           throw new InvalidUserName();
         }
         
@@ -140,7 +140,10 @@ namespace socialnetwork
 
     static public System.Collections.Generic.List<Message> getMessages(string userName) {
       try {
-        return _users[userName].messages;
+        System.Collections.Generic.List<Message> list
+          = new System.Collections.Generic.List<Message>(_users[userName].messages);
+        list.Reverse();
+        return list;
       } catch (System.Collections.Generic.KeyNotFoundException) {
         throw new InvalidUserName();
       }
@@ -288,10 +291,17 @@ namespace socialnetwork
 
       // ordena a lista de acordo com a data, mas em ordem inversa
       messages.Sort(delegate(Message message1, Message message2){
-        return -1 * message1.created.CompareTo(message2.created);
+        return - message1.created.CompareTo(message2.created);
       });
 
       return messages;
+    }
+
+    static public void reset()
+    {
+      _users = new System.Collections.Generic.Dictionary<string,User>();
+      Messages.reset();
+      HashTags.reset();
     }
   }
   

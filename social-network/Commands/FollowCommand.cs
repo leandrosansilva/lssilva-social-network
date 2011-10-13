@@ -33,7 +33,7 @@ namespace socialnetwork
       } catch (FollowedAlreadExists) {
         return "ja-seguindo";
       } catch (UsersAreTheSame) {
-        return "seguidor-e-seguidos-sao-iguais";
+        return "seguidor-e-seguido-sao-iguais";
       }
 
     }

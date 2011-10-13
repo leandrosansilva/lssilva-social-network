@@ -88,5 +88,10 @@ namespace socialnetwork
         throw new InvalidUserName();
       }
     }
+
+    static public void reset()
+    {
+      _messages = new System.Collections.Generic.List<Message>();
+    }
   }
 }

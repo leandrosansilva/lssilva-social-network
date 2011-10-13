@@ -73,7 +73,11 @@ namespace socialnetwork
       }
 
       try {
-        return _hashTags[v].messages;
+        List<Message> list = new List<Message>(_hashTags[v].messages);
+        list.Sort(delegate(Message m1, Message m2){
+          return - m1.created.CompareTo(m2.created);
+        });
+        return list;
       } catch (System.Collections.Generic.KeyNotFoundException){
         throw new HashTagDoesNotExist();
       }
@@ -88,8 +92,15 @@ namespace socialnetwork
       }
 
       list.Sort(delegate(HashTag h1, HashTag h2) {
-        // multiplica por -1 para inverter a ordenação
-        return -1 * h1.messages.Count.CompareTo(h2.messages.Count);
+        Int32 r = - h1.messages.Count.CompareTo(h2.messages.Count);
+
+        if (r != 0) {
+          return r;
+        }
+
+        // caso as duas hashtags tenham o mesmo número de mensagens,
+        // devo comparar pela ordem alfabética
+        return h1.hash.CompareTo(h2.hash);
       });
 
       try {
@@ -99,6 +110,11 @@ namespace socialnetwork
         // ou, caso exista menos hashs, a lista inteira
         return list;
       }
+    }
+
+    static public void reset()
+    {
+      _hashTags = new Dictionary<string,HashTag>();
     }
   }
 }

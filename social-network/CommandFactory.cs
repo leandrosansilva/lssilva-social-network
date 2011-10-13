@@ -34,7 +34,7 @@ namespace socialnetwork
       {"listar-mensagens-seguidos",delegate(string parameter) {
         return new ListFollowedMessagesCommand(parameter);
       }},
-      {"listar-tendencias",delegate(string parameter) {
+      {"listar-tendencia",delegate(string parameter) {
         return new ListTendenciesCommand();
       }},
       {"listar-mensagens-com-palavra-marcada",delegate(string parameter) {
@@ -42,6 +42,9 @@ namespace socialnetwork
       }},
       {"listar-estatisticas-usuario",delegate(string parameter) {
         return new UserStatsCommand(parameter);
+      }},
+      {"resetar",delegate(string parameter) {
+        return new ResetCommand();
       }}
     };
 
