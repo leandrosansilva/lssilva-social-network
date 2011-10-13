@@ -46,7 +46,6 @@
     <Compile Include="Commands\ListFollowersCommand.cs" />
     <Compile Include="Commands\FollowCommand.cs" />
     <Compile Include="Commands\ListFollowedCommand.cs" />
-    <Compile Include="Commands\ListFollowedMessages.cs" />
     <Compile Include="ClientHandler.cs" />
     <Compile Include="Commands\UnfollowCommand.cs" />
     <Compile Include="Commands\ListTendenciesCommand.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="Models\HashTag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Commands\ListFollowedMessagesCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -32,7 +32,7 @@ namespace socialnetwork
         return new UnfollowCommand(parameter);
       }},
       {"listar-mensagens-seguidos",delegate(string parameter) {
-        return new ListFollowedMessages(parameter);
+        return new ListFollowedMessagesCommand(parameter);
       }},
       {"listar-tendencias",delegate(string parameter) {
         return new ListTendenciesCommand();

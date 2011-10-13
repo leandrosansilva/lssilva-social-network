@@ -268,7 +268,7 @@ namespace socialnetwork
       }
     }
 
-    static public System.Collections.Generic.List<Message> getFollowerMessages(string userName)
+    static public System.Collections.Generic.List<Message> getFollowedMessages(string userName)
     {
       System.Collections.Generic.List<Message> messages = new System.Collections.Generic.List<Message>();
 

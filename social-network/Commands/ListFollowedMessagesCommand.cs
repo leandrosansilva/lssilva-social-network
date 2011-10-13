@@ -2,11 +2,11 @@ using System;
 
 namespace socialnetwork
 {
-  public class ListFollowedMessages: Command
+  public class ListFollowedMessagesCommand: Command
   {
     private string _userName;
 
-    public ListFollowedMessages (string command)
+    public ListFollowedMessagesCommand (string command)
     {
       _userName = command;
     }
@@ -14,7 +14,7 @@ namespace socialnetwork
     public string execute()
     {
       try {
-        System.Collections.Generic.List<Message> messages = Users.getFollowerMessages(_userName);
+        System.Collections.Generic.List<Message> messages = Users.getFollowedMessages(_userName);
         string output = "";
 
         foreach(Message message in messages) {
