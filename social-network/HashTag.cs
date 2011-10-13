@@ -76,6 +76,11 @@ namespace socialnetwork
         throw new HashTagDoesNotExist();
       }
     }
+
+    static public List<HashTag> getMostUsed(int count)
+    {
+      return null;
+    }
   }
 }
 

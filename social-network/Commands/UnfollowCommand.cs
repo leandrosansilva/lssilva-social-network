@@ -6,7 +6,7 @@ namespace socialnetwork
   public class UnfollowCommand: Command
   {
     private string _user;
-    private string _following;
+    private string _followed;
 
     public UnfollowCommand(string command)
     {
@@ -18,19 +18,19 @@ namespace socialnetwork
       }
 
       _user = result.Groups[1].ToString();
-      _following = result.Groups[2].ToString();
+      _followed = result.Groups[2].ToString();
     }
 
     public string execute()
     {
       try {
-        Users.unfollow(_user,_following);
+        Users.unfollow(_user,_followed);
         return "ok";
       } catch (InvalidUserName) {
         return "seguidor-nao-encontrado";
-      } catch (InvalidFollowing) {
+      } catch (InvalidFollowed) {
         return "seguido-nao-encontrado";
-      } catch (FollowingDoesNotExists) {
+      } catch (FollowedDoesNotExists) {
         return "não-seguindo";
       }
     }

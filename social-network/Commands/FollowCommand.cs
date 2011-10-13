@@ -6,7 +6,7 @@ namespace socialnetwork
   public class FollowCommand: Command
   {
     private string _user;
-    private string _following;
+    private string _followed;
 
     public FollowCommand(string command)
     {
@@ -18,19 +18,19 @@ namespace socialnetwork
       }
 
       _user = result.Groups[1].ToString();
-      _following = result.Groups[2].ToString();
+      _followed = result.Groups[2].ToString();
     }
     
     public string execute()
     {
       try {
-        Users.follow(_user,_following);
+        Users.follow(_user,_followed);
         return "ok";
       } catch (InvalidUserName) {
         return "seguidor-nao-encontrado";
-      } catch (InvalidFollowing) {
+      } catch (InvalidFollowed) {
         return "seguido-nao-encontrado";
-      } catch (FollowingAlreadExists) {
+      } catch (FollowedAlreadExists) {
         return "ja-seguindo";
       } catch (UsersAreTheSame) {
         return "seguidor-e-seguidos-sao-iguais";

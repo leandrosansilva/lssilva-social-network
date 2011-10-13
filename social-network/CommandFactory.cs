@@ -3,15 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace socialnetwork
 {
-  public class CommandFactory
+  static public class CommandFactory
   {
-    private CommandFactory ()
-    {
-    }
-    
     static public Command create(string commandInput)
     {
-      // FIXME: usar uma regexp para esxtrair comando e parametros
+      // FIXME: usar uma regexp para extrair comando e parametros
 
       // obtenho o comando passado
       string key = "";
@@ -22,34 +18,36 @@ namespace socialnetwork
       }
       
       // o que foi passado, sem o comando, só os dados
-      string payload = commandInput.Substring(i).TrimStart();
+      string parameter = commandInput.Substring(i).TrimStart();
       
       // TODO: mudar este switch para um mapa chave -> classe
       switch (key) {
         case "criar-usuario":
-          return new CreateUserCommand(payload);
+          return new CreateUserCommand(parameter);
         case "listar-mensagens-usuario":
-          return new ListUserMessagesCommand(payload);
+          return new ListUserMessagesCommand(parameter);
         case "postar-mensagem":
-          return new PostMessageCommand(payload);
+          return new PostMessageCommand(parameter);
         case "listar-seguidores":
-          return new ListFollowersCommand(payload);
+          return new ListFollowersCommand(parameter);
         case "seguir":
-          return new FollowCommand(payload);
+          return new FollowCommand(parameter);
         case "listar-seguidos":
-          return new ListFollowedCommand(payload);
+          return new ListFollowedCommand(parameter);
         case "deixar-de-seguir":
-          return new UnfollowCommand(payload);
+          return new UnfollowCommand(parameter);
         case "listar-mensagens-seguidos":
-          return new ListFollowedMessages(payload);
+          return new ListFollowedMessages(parameter);
         case "listar-tendencias":
           return new ListTendenciesCommand();
         case "listar-mensagens-com-palavra-marcada":
-          return new ListMessagesWithHashTagCommand(payload);
+          return new ListMessagesWithHashTagCommand(parameter);
+        case "listar-estatisticas-usuario":
+          return new UserStatsCommand(parameter);
       }
       
       // um comando de erro
-      return new ErrorCommand(payload);
+      return new ErrorCommand(parameter);
     }
   }
 }

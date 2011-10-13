@@ -10,7 +10,9 @@ namespace socialnetwork
 
     public string execute()
     {
-      return "ok";
+      System.Collections.Generic.List<HashTag> hashTags = HashTags.getMostUsed(5);
+
+      return "";
     }
   }
 }

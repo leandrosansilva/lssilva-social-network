@@ -19,14 +19,12 @@ namespace socialnetwork
     
     public string execute()
     {
-      User user = null;
-
       try {
         Messages.add(_userName,_content);
         return "ok";
-      } catch (InvalidUserName e) {
+      } catch (InvalidUserName) {
         return "usuario-nao-encontrado";
-      } catch (InvalidMessage e) {
+      } catch (InvalidMessage) {
         return "mensagem-invalida";
       }
     }

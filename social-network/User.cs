@@ -11,14 +11,14 @@ namespace socialnetwork
   {
   }
 
-  public class InvalidFollowing: Exception
+  public class InvalidFollowed: Exception
   {
   }
 
-  public class FollowingAlreadExists: Exception
+  public class FollowedAlreadExists: Exception
   {
   }
-  public class FollowingDoesNotExists: Exception
+  public class FollowedDoesNotExists: Exception
   {
   }
 
@@ -26,8 +26,43 @@ namespace socialnetwork
   {
   }
 
-  public class NotFollowing: Exception
+  public class NotFollowed: Exception
   {
+  }
+
+  // classe que representa as estatísticas de um usuário
+  public class UserStats
+  {
+    private int _followers;
+    private int _followed;
+    private int _messagesCount;
+
+    public int followers {
+      get {
+        return _followers;
+      }
+      set {
+        _followers = value;
+      }
+    }
+
+    public int followed {
+      get {
+        return _followed;
+      }
+      set {
+        _followed = value;
+      }
+    }
+
+    public int messagesCount {
+      get {
+        return _messagesCount;
+      }
+      set {
+        _messagesCount = value;
+      }
+    }
   }
 
   public class User
@@ -38,7 +73,7 @@ namespace socialnetwork
     private System.Collections.Generic.List<User> _followers
       = new System.Collections.Generic.List<User>();
 
-    private System.Collections.Generic.List<User> _following
+    private System.Collections.Generic.List<User> _followed
       = new System.Collections.Generic.List<User>();
 
     private string _name;
@@ -64,9 +99,9 @@ namespace socialnetwork
       }
     }
 
-    public System.Collections.Generic.List<User> following {
+    public System.Collections.Generic.List<User> followed {
       get {
-        return _following;
+        return _followed;
       }
     }
 
@@ -125,7 +160,7 @@ namespace socialnetwork
 
     static public void follow(string userName, string followName) {
       User user = null;
-      User following = null;
+      User followed = null;
 
       try {
         user = _users[userName];
@@ -136,11 +171,11 @@ namespace socialnetwork
       }
 
       try {
-        following = _users[followName];
+        followed = _users[followName];
       } catch (System.Collections.Generic.KeyNotFoundException) {
-        throw new InvalidFollowing();
+        throw new InvalidFollowed();
       } catch (ArgumentNullException) {
-        throw new InvalidFollowing();
+        throw new InvalidFollowed();
       }
 
       // se forem iguais, é erro!
@@ -148,19 +183,19 @@ namespace socialnetwork
         throw new UsersAreTheSame();
       }
 
-      if (user.following.Contains(following)) {
-        throw new FollowingAlreadExists();
+      if (user.followed.Contains(followed)) {
+        throw new FollowedAlreadExists();
       }
 
-      user.following.Add(following);
-      following.followers.Add(user);
+      user.followed.Add(followed);
+      followed.followers.Add(user);
     }
 
     static public System.Collections.Generic.List<User> getFollowed(string userName)
     {
       try {
         User user = _users[userName];
-        return user.following;
+        return user.followed;
       } catch (System.Collections.Generic.KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
@@ -185,7 +220,7 @@ namespace socialnetwork
       // FIXME: isso daqui é uma cópia do código de follow()!
 
       User user = null;
-      User following = null;
+      User followed = null;
 
       try {
         user = _users[userName];
@@ -196,11 +231,11 @@ namespace socialnetwork
       }
 
       try {
-        following = _users[followName];
+        followed = _users[followName];
       } catch (System.Collections.Generic.KeyNotFoundException) {
-        throw new InvalidFollowing();
+        throw new InvalidFollowed();
       } catch (ArgumentNullException) {
-        throw new InvalidFollowing();
+        throw new InvalidFollowed();
       }
 
       // se forem iguais, é erro!
@@ -208,12 +243,29 @@ namespace socialnetwork
         throw new UsersAreTheSame();
       }
 
-      if (!user.following.Contains(following)) {
-        throw new FollowingDoesNotExists();
+      if (!user.followed.Contains(followed)) {
+        throw new FollowedDoesNotExists();
       }
 
-      user.following.Remove(following);
-      following.followers.Remove(user);
+      // tudo ok, posso remover 
+      user.followed.Remove(followed);
+      followed.followers.Remove(user);
+    }
+
+    static public UserStats getUserStats(string userName)
+    {
+      try {
+        User user = _users[userName];
+        return new UserStats() {
+          followed = user.followed.Count,
+          followers = user.followers.Count,
+          messagesCount = user.messages.Count
+        };
+      } catch (System.Collections.Generic.KeyNotFoundException) {
+        throw new InvalidUserName();
+      } catch (ArgumentNullException) {
+        throw new InvalidUserName();
+      }
     }
   }
   
