@@ -52,6 +52,8 @@
     <Compile Include="Message.cs" />
     <Compile Include="HashTag.cs" />
     <Compile Include="Commands\UnfollowCommand.cs" />
+    <Compile Include="Commands\ListTendenciesCommand.cs" />
+    <Compile Include="Commands\ListMessagesWithHashTagCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

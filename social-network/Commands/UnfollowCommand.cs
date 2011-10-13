@@ -28,8 +28,10 @@ namespace socialnetwork
         return "ok";
       } catch (InvalidUserName) {
         return "seguidor-nao-encontrado";
-      } catch (FollowingDoesNotExists) {
+      } catch (InvalidFollowing) {
         return "seguido-nao-encontrado";
+      } catch (FollowingDoesNotExists) {
+        return "não-seguindo";
       }
     }
   }

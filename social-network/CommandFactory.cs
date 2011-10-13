@@ -42,6 +42,10 @@ namespace socialnetwork
           return new UnfollowCommand(payload);
         case "listar-mensagens-seguidos":
           return new ListFollowedMessages(payload);
+        case "listar-tendencias":
+          return new ListTendenciesCommand();
+        case "listar-mensagens-com-palavra-marcada":
+          return new ListMessagesWithHashTagCommand(payload);
       }
       
       // um comando de erro
