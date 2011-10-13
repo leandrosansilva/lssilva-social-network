@@ -61,6 +61,8 @@ namespace socialnetwork
       Console.WriteLine(message.content);
 
       hashTag.messages.Add(message);
+      message.hashTags.Add(hashTag);
+
       return hashTag;
     }
 
@@ -79,7 +81,19 @@ namespace socialnetwork
 
     static public List<HashTag> getMostUsed(int count)
     {
-      return null;
+      List<HashTag> list = new List<HashTag>();
+
+      foreach (var h in _hashTags) {
+        list.Add(h.Value);
+      }
+
+      list.Sort(delegate(HashTag h1, HashTag h2) {
+        // multiplica por -1 para inverter a ordenação
+        return -1 * h1.messages.Count.CompareTo(h2.messages.Count);
+      });
+
+      // pega os count primeiros
+      return list.GetRange(0,count);
     }
   }
 }

@@ -9,6 +9,7 @@ namespace socialnetwork
 
     public PostMessageCommand(string command)
     {
+      // TODO: usar regex
       int i = 0;
       for (;i < command.Length && command[i] != ' '; i++) {
         _userName += command[i];

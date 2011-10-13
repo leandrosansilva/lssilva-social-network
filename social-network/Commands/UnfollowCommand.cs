@@ -30,7 +30,7 @@ namespace socialnetwork
         return "seguidor-nao-encontrado";
       } catch (InvalidFollowed) {
         return "seguido-nao-encontrado";
-      } catch (FollowedDoesNotExists) {
+      } catch (FollowedDoesNotExist) {
         return "não-seguindo";
       }
     }

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-while read comando; do
-  nc localhost 1234 <<< $comando
+while read command; do
+  nc localhost 1234 <<< $command
 done

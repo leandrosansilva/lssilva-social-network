@@ -71,7 +71,8 @@ namespace socialnetwork
         User user = Users.addMessage(userName,message);
         message.user = user;
 
-        // FIXME: isto está errado, pois pega # no meio de palavras
+        // FIXME: isto está errado, pois pega # no meio de palavras (malha#ção gera #ção)
+        // e não pega #coca-cola, mas só #coca
         Regex re = new Regex(@"(#\w+)");
 
         MatchCollection match = re.Matches(content);
@@ -79,13 +80,7 @@ namespace socialnetwork
         Console.WriteLine(match.Count);
 
         for (int i = 0; i < match.Count; i++) {
-          HashTag hashTag = HashTags.associate(match[i].ToString(),message);
-
-          Console.WriteLine(match[i].ToString());
-
-          Console.WriteLine(hashTag.hash);
-
-          message.hashTags.Add(hashTag);
+          HashTags.associate(match[i].ToString(),message);
         }
 
         _messages.Add(message);

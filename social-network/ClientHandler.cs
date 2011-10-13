@@ -30,7 +30,7 @@ namespace socialnetwork
         Console.WriteLine(output);
 
         /* FIXME: gambiarra: se o último caractere da resposta for uma quebra de linha,
-         * usa write, para não duplicar a quebra de linha. Caso contrário, usa writeline
+         * usa write, para não duplica-la. Caso contrário, usa writeline
         */
         if (output.EndsWith("\n")) {
           _writer.Write(output);
@@ -63,4 +63,3 @@ namespace socialnetwork
     }
   }
 }
-

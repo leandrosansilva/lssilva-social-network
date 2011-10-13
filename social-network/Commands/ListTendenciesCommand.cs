@@ -12,7 +12,13 @@ namespace socialnetwork
     {
       System.Collections.Generic.List<HashTag> hashTags = HashTags.getMostUsed(5);
 
-      return "";
+      string output = "";
+
+      foreach(HashTag hashTag in hashTags) {
+        output += hashTag.hash + "\n";
+      }
+
+      return output;
     }
   }
 }

@@ -18,7 +18,7 @@ namespace socialnetwork
   public class FollowedAlreadExists: Exception
   {
   }
-  public class FollowedDoesNotExists: Exception
+  public class FollowedDoesNotExist: Exception
   {
   }
 
@@ -244,7 +244,7 @@ namespace socialnetwork
       }
 
       if (!user.followed.Contains(followed)) {
-        throw new FollowedDoesNotExists();
+        throw new FollowedDoesNotExist();
       }
 
       // tudo ok, posso remover 
@@ -285,6 +285,11 @@ namespace socialnetwork
       foreach (User follower in user.followed) {
         messages.AddRange(follower.messages);
       }
+
+      // ordena a lista de acordo com a data, mas em ordem inversa
+      messages.Sort(delegate(Message message1, Message message2){
+        return -1 * message1.created.CompareTo(message2.created);
+      });
 
       return messages;
     }

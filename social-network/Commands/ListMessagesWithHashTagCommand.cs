@@ -5,7 +5,7 @@ namespace socialnetwork
 {
   public class ListMessagesWithHashTagCommand: Command
   {
-    private string _hash;
+    private string _hash = "";
     public ListMessagesWithHashTagCommand(string hash)
     {
       _hash = hash;
