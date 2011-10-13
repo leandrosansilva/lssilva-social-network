@@ -12,12 +12,16 @@ namespace socialnetwork
     {
       private Command _command = null;
       private StreamWriter _writer = null;
+      private StreamReader _reader = null;
+      private NetworkStream _stream = null;
       private Thread _thread = null;
       
-      public InternalHandler(Command command, StreamWriter writer)
+      public InternalHandler(Command command, StreamWriter writer, StreamReader reader,NetworkStream stream)
       {
         _command = command;
         _writer = writer;
+        _reader = reader;
+        _stream = stream;
       }
       
       public void execute()
@@ -25,6 +29,11 @@ namespace socialnetwork
         string output = _command.execute();
         Console.WriteLine(output);
         _writer.WriteLine(output);
+        _writer.Flush();
+
+        _writer.Close();
+        _reader.Close();
+        _stream.Close();
       }
       
       public void run()
@@ -38,9 +47,9 @@ namespace socialnetwork
     {
     }
     
-    public void handle(Command command, StreamWriter writer)
+    public void handle(Command command, StreamWriter writer, StreamReader reader,NetworkStream stream)
     {
-      InternalHandler handler = new InternalHandler(command,writer);
+      InternalHandler handler = new InternalHandler(command,writer,reader,stream);
       handler.run();
     }
   }

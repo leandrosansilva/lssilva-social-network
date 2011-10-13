@@ -29,10 +29,12 @@ namespace socialnetwork
         StreamWriter writer = new StreamWriter(stream,Encoding.UTF8);
         
         string clientInput = reader.ReadLine();
+
+        Console.WriteLine(clientInput);
         
         Command command = CommandFactory.create(clientInput);
         
-        _handler.handle(command,writer);
+        _handler.handle(command,writer,reader,stream);
       }
     }
   }
