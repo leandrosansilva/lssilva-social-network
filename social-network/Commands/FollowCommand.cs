@@ -11,7 +11,7 @@ namespace socialnetwork
     public FollowCommand(string command)
     {
       Regex er = new Regex(@"^(\w+) +(.+)$");
-      Match result = er.Match(command.TrimEnd());
+      Match result = er.Match(command);
 
       if (!result.Success || result.Groups.Count != 3) {
         return;

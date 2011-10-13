@@ -61,7 +61,7 @@ namespace socialnetwork
       }
       
       // o que foi passado, sem o comando, só os dados
-      string parameter = commandInput.Substring(i).TrimStart();
+      string parameter = commandInput.Substring(i).Trim();
       
       try {
         return _commandDelegate[key](parameter);

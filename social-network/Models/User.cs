@@ -198,7 +198,11 @@ namespace socialnetwork
     {
       try {
         User user = _users[userName];
-        return user.followed;
+        System.Collections.Generic.List<User> list = new System.Collections.Generic.List<User>(user.followed);
+
+        list.Reverse();
+
+        return list;
       } catch (System.Collections.Generic.KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
@@ -210,7 +214,12 @@ namespace socialnetwork
     {
       try {
         User user = _users[userName];
-        return user.followers;
+
+        System.Collections.Generic.List<User> list = new System.Collections.Generic.List<User>(user.followers);
+
+        list.Reverse();
+
+        return list;
       } catch (System.Collections.Generic.KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
