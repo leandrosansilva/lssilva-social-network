@@ -27,14 +27,18 @@ namespace socialnetwork
         
         StreamReader reader = new StreamReader(stream,new UTF8Encoding(false));
         StreamWriter writer = new StreamWriter(stream,new UTF8Encoding(false));
-        
-        string clientInput = reader.ReadLine();
 
-        Console.WriteLine(clientInput);
+        try {
+          string clientInput = reader.ReadLine();
+
+          Console.WriteLine(clientInput);
         
-        Command command = CommandFactory.create(clientInput);
+          Command command = CommandFactory.create(clientInput);
         
-        _handler.handle(command,writer,reader,stream);
+          _handler.handle(command,writer,reader,stream);
+        } catch (IOException) {
+          Console.WriteLine("command error");
+        }
       }
     }
   }

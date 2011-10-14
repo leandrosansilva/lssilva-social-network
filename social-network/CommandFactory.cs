@@ -45,6 +45,9 @@ namespace socialnetwork
       }},
       {"resetar",delegate(string parameter) {
         return new ResetCommand();
+      }},
+      {"wait",delegate(string parameter) {
+        return new WaitCommand();
       }}
     };
 

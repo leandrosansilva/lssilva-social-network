@@ -122,19 +122,18 @@ namespace socialnetwork
 
     static public void add(string userName)
     {
-      lock(typeof(Users)) {
+      // nome do usuário entre 3 e 20 chars, só com letras ou números
+      if (!Regex.IsMatch(userName,@"^\p{L}{3,20}$")) {
+        throw new InvalidUserName();
+      }
 
-        // nome do usuário entre 3 e 20 chars, só com letras ou números
-        if (!Regex.IsMatch(userName,@"^\p{L}{3,20}$")) {
-          throw new InvalidUserName();
-        }
-        
-        try {
+      try {
+        lock (typeof(Users)) {
           // duplicando o valor nome, na chave e como atributo :-(
           _users.Add(userName,new User() { name = userName });
-        } catch (System.ArgumentException) {
-          throw new UserAlreadExists();
         }
+      } catch (System.ArgumentException) {
+        throw new UserAlreadExists();
       }
     }
 

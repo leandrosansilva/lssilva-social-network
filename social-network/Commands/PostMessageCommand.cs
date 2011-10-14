@@ -15,7 +15,7 @@ namespace socialnetwork
         _userName += command[i];
       }
     
-      _content = command.Substring(i).TrimStart();
+      _content = command.Substring(i).Trim();
     }
     
     public string execute()

@@ -31,9 +31,6 @@
     <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
@@ -56,10 +53,14 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Commands\ListFollowedMessagesCommand.cs" />
     <Compile Include="Commands\ResetCommand.cs" />
+    <Compile Include="Commands\WaitCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
 </Project>
