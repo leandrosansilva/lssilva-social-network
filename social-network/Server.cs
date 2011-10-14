@@ -14,7 +14,7 @@ namespace socialnetwork
     
     public Server(int port)
     {
-      _serverListener = new TcpListener(IPAddress.Parse("127.0.0.1"),port);
+      _serverListener = new TcpListener(IPAddress.Any,port);
       _serverListener.Start();
     }
 

@@ -6,6 +6,10 @@ namespace socialnetwork
 {
   public delegate Command CommandDelegate(string parameter);
 
+  class CommunicationError: Exception
+  {
+  }
+
   static public class CommandFactory
   {
     static private Dictionary<string,CommandDelegate> _commandDelegate
@@ -57,14 +61,17 @@ namespace socialnetwork
 
       // obtenho o comando passado
       string key = "";
-
-      int i = 0;
-      for (;i < commandInput.Length && commandInput[i] != ' '; i++) {
-        key += commandInput[i];
-      }
-      
       // o que foi passado, sem o comando, só os dados
-      string parameter = commandInput.Substring(i).Trim();
+      string parameter = null;
+
+      //try {
+        int i = 0;
+        for (;i < commandInput.Length && commandInput[i] != ' '; i++) {
+          key += commandInput[i];
+        }
+      //}
+      
+      parameter = commandInput.Substring(i).Trim();
       
       try {
         return _commandDelegate[key](parameter);
