@@ -8,7 +8,7 @@
     <Packages>
       <Packages>
         <Package name="Tarball">
-          <Builder TargetDirectory="social-network" DefaultConfiguration="Debug|x86" ctype="TarballDeployTarget">
+          <Builder TargetDirectory="social-network" DefaultConfiguration="Release|x86" ctype="TarballDeployTarget">
             <ChildEntries>
               <SolutionItemReference path="social-network\social-network.csproj" />
             </ChildEntries>
