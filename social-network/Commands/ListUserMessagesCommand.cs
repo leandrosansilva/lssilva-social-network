@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
@@ -31,7 +32,7 @@ namespace socialnetwork
     public string execute()
     {
       try {
-        System.Collections.Generic.List<Message> messages = Users.getMessages(_user);
+        List<Message> messages = Users.getMessages(_user);
 
         string output = "";
 

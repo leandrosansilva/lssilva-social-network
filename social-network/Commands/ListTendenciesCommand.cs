@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
@@ -27,7 +28,7 @@ namespace socialnetwork
 
     public string execute()
     {
-      System.Collections.Generic.List<HashTag> hashTags = HashTags.getMostUsed(5);
+      List<HashTag> hashTags = HashTags.getMostUsed(5);
 
       string output = "";
 

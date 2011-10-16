@@ -17,6 +17,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
@@ -41,7 +42,7 @@ namespace socialnetwork
       }
     }
 
-    public System.Collections.Generic.List<HashTag> hashTags {
+    public List<HashTag> hashTags {
       get {
         return _hashTags;
       }
@@ -60,8 +61,8 @@ namespace socialnetwork
 
     private DateTime _created = DateTime.Now;
 
-    private System.Collections.Generic.List<HashTag> _hashTags
-      = new System.Collections.Generic.List<HashTag>();
+    private List<HashTag> _hashTags
+      = new List<HashTag>();
 
     public Message()
     {
@@ -74,8 +75,7 @@ namespace socialnetwork
   
   static public class Messages
   {
-    static private System.Collections.Generic.List<Message> _messages
-      = new System.Collections.Generic.List<Message>();
+    static private List<Message> _messages = new List<Message>();
 
     static public void add(string userName, string content)
     {
@@ -108,7 +108,7 @@ namespace socialnetwork
 
     static public void reset()
     {
-      _messages = new System.Collections.Generic.List<Message>();
+      _messages = new List<Message>();
     }
   }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
@@ -84,14 +85,14 @@ namespace socialnetwork
 
   public class User
   {
-    private System.Collections.Generic.List<Message> _messages
-      = new System.Collections.Generic.List<Message>();
+    private List<Message> _messages
+      = new List<Message>();
 
-    private System.Collections.Generic.List<User> _followers
-      = new System.Collections.Generic.List<User>();
+    private List<User> _followers
+      = new List<User>();
 
-    private System.Collections.Generic.List<User> _followed
-      = new System.Collections.Generic.List<User>();
+    private List<User> _followed
+      = new List<User>();
 
     private string _name;
 
@@ -104,19 +105,19 @@ namespace socialnetwork
       }
     }
 
-    public System.Collections.Generic.List<Message> messages {
+    public List<Message> messages {
       get {
         return _messages;
       }
     }
 
-    public System.Collections.Generic.List<User> followers {
+    public List<User> followers {
       get {
         return _followers;
       }
     }
 
-    public System.Collections.Generic.List<User> followed {
+    public List<User> followed {
       get {
         return _followed;
       }
@@ -134,8 +135,8 @@ namespace socialnetwork
 
   static public class Users
   {
-    static private System.Collections.Generic.Dictionary<string,User> _users
-    = new System.Collections.Generic.Dictionary<string,User>();
+    static private Dictionary<string,User> _users
+    = new Dictionary<string,User>();
 
     static public void add(string userName)
     {
@@ -154,13 +155,12 @@ namespace socialnetwork
       }
     }
 
-    static public System.Collections.Generic.List<Message> getMessages(string userName) {
+    static public List<Message> getMessages(string userName) {
       try {
-        System.Collections.Generic.List<Message> list
-          = new System.Collections.Generic.List<Message>(_users[userName].messages);
+        List<Message> list = new List<Message>(_users[userName].messages);
         list.Reverse();
         return list;
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       }
     }
@@ -172,7 +172,7 @@ namespace socialnetwork
         user = _users[userName];
         user.addMessage(message);
         return user;
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       }
     }
@@ -183,7 +183,7 @@ namespace socialnetwork
 
       try {
         user = _users[userName];
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
@@ -191,7 +191,7 @@ namespace socialnetwork
 
       try {
         followed = _users[followName];
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidFollowed();
       } catch (ArgumentNullException) {
         throw new InvalidFollowed();
@@ -210,33 +210,33 @@ namespace socialnetwork
       followed.followers.Add(user);
     }
 
-    static public System.Collections.Generic.List<User> getFollowed(string userName)
+    static public List<User> getFollowed(string userName)
     {
       try {
         User user = _users[userName];
-        System.Collections.Generic.List<User> list = new System.Collections.Generic.List<User>(user.followed);
+        List<User> list = new List<User>(user.followed);
 
         list.Reverse();
 
         return list;
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
       }
     }
 
-    static public System.Collections.Generic.List<User> getFollowers(string userName)
+    static public List<User> getFollowers(string userName)
     {
       try {
         User user = _users[userName];
 
-        System.Collections.Generic.List<User> list = new System.Collections.Generic.List<User>(user.followers);
+        List<User> list = new List<User>(user.followers);
 
         list.Reverse();
 
         return list;
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
@@ -252,7 +252,7 @@ namespace socialnetwork
 
       try {
         user = _users[userName];
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
@@ -260,7 +260,7 @@ namespace socialnetwork
 
       try {
         followed = _users[followName];
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidFollowed();
       } catch (ArgumentNullException) {
         throw new InvalidFollowed();
@@ -289,22 +289,22 @@ namespace socialnetwork
           followers = user.followers.Count,
           messagesCount = user.messages.Count
         };
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
       }
     }
 
-    static public System.Collections.Generic.List<Message> getFollowedMessages(string userName)
+    static public List<Message> getFollowedMessages(string userName)
     {
-      System.Collections.Generic.List<Message> messages = new System.Collections.Generic.List<Message>();
+      List<Message> messages = new List<Message>();
 
       User user = null;
 
       try {
         user = _users[userName];
-      } catch (System.Collections.Generic.KeyNotFoundException) {
+      } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
@@ -324,10 +324,10 @@ namespace socialnetwork
 
     static public void reset()
     {
-      _users = new System.Collections.Generic.Dictionary<string,User>();
+      _users = new Dictionary<string,User>();
       Messages.reset();
       HashTags.reset();
     }
   }
-  
+
 }

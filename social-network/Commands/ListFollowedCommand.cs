@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 
 namespace socialnetwork
 {
@@ -31,7 +32,7 @@ namespace socialnetwork
     public string execute()
     {
       try {
-        System.Collections.Generic.List<User> followed = Users.getFollowed(_userName);
+        List<User> followed = Users.getFollowed(_userName);
         string output = "";
 
         foreach(User f in followed) {
