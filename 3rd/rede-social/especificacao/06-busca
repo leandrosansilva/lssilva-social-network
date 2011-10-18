@@ -1,0 +1,36 @@
+Busca
+
+Efetuar busca, independente se possui hashTag ou não.
+Retorna em ordem inversa à data de postagem (mais recentes primeiro), 
+na forma usuario mensagem
+
+> criar-usuario joao
+ok
+> criar-usuario maria
+ok
+> criar-usuario pedro
+ok
+> postar-mensagem joao Estou assistindo o #brasileirao na #tv.
+ok
+> postar-mensagem maria Acabei de ver a #cozinha dos meus sonhos na #tv!
+ok
+> postar-mensagem maria Pena que custa uma #fortuna...
+ok
+> postar-mensagem pedro Os #políticos no #brasil ganham uma #fortuna.
+ok
+> postar-mensagem joao Acho que vou na #cozinha procurar alguma coisa para comer.
+ok
+> postar-mensagem pedro Só passa desgraça na #tv.
+ok
+> postar-mensagem pedro Não fico mais assistindo esta coisa #estranha.
+ok
+> buscar assistindo
+pedro Não fico mais assistindo esta coisa #estranha.
+joao Estou assistindo o #brasileirao na #tv.
+> buscar cacatua
+padrao-nao-encontrado
+> buscar ^A
+joao Acho que vou na #cozinha procurar alguma coisa para comer.
+maria Acabei de ver a #cozinha dos meus sonhos na #tv!
+> buscar ^C
+padrao-nao-encontrado

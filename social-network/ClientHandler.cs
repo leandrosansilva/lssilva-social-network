@@ -25,6 +25,8 @@ namespace socialnetwork
 {
   public class ClientHandler
   {
+    // FIXME: não preciso desta classe. Posso usar uma função anônima (delegate)
+    // no lugar de uma classe no ClientHandler
     private class InternalHandler 
     {
       private Command _command = null;

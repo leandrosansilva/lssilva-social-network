@@ -22,7 +22,7 @@ namespace socialnetwork
         }
         return output;
       } catch (InvalidUserName) {
-        return "usuario-invalido";
+        return "usuario-nao-encontrado";
       } catch (PatternNotFound) {
         return "nenhuma-mencao-encontrada";
       }

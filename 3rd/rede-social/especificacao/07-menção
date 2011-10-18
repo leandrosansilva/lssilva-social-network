@@ -1,0 +1,24 @@
+Menção
+
+Quando um usuário posta uma mensagem com um apalavra @joão, 
+significa que joão foi mencionado
+
+> criar-usuario joão
+ok
+> criar-usuario pedro
+ok
+> criar-usuario maria
+ok
+> postar-mensagem joão O @pedro e a @maria estão agora #casados
+ok
+> postar-mensagem maria Graças à Hades hoje eu e o @pedro nos casamos
+ok
+> postar-mensagem maria No #banheiro cantando
+ok
+> listar-mencoes pedro
+maria Graças à Hades hoje eu e o @pedro nos casamos
+joão O @pedro e a @maria estão agora #casados
+> listar-mencoes joaquim
+usuario-nao-encontrado
+> listar-mencoes joão
+nenhuma-mencao-encontrada

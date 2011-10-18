@@ -54,6 +54,9 @@ namespace socialnetwork
         
           _handler.handle(command,writer,reader,stream);
         } catch (IOException) {
+          reader.Close();
+          writer.Close();
+          stream.Close();
           Console.WriteLine("command error");
         }
       }
