@@ -32,7 +32,7 @@ namespace socialnetwork
     public Server(int port)
     {
       _serverListener = new TcpListener(IPAddress.Any,port);
-      _serverListener.Start();
+      _serverListener.Start(10000);
     }
 
     public void run()
