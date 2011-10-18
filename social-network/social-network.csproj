@@ -54,6 +54,8 @@
     <Compile Include="Commands\ListFollowedMessagesCommand.cs" />
     <Compile Include="Commands\ResetCommand.cs" />
     <Compile Include="Commands\WaitCommand.cs" />
+    <Compile Include="Commands\SearchCommand.cs" />
+    <Compile Include="Commands\ListMentionsCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

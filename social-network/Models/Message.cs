@@ -21,6 +21,10 @@ using System.Collections.Generic;
 
 namespace socialnetwork
 {
+  class PatternNotFound: Exception
+  {
+  }
+
   public class Message
   {
     public string content {
@@ -75,6 +79,27 @@ namespace socialnetwork
   
   static public class Messages
   {
+    public static List<Message> resultsOfSearch (string _pattern)
+    {
+      List<Message> list = new List<Message>();
+      Console.WriteLine("^.*" + _pattern + ".*$");
+      Regex er = new Regex(_pattern);
+
+      // FIXME: busca sequencial, a pior possível :-(
+      foreach(Message message in _messages) {
+        if (er.IsMatch(message.content)) {
+          list.Add(message);
+        }
+      }
+      if (list.Count == 0) {
+        throw new PatternNotFound();
+      }
+
+      list.Reverse();
+
+      return list;
+    }
+   
     static private List<Message> _messages = new List<Message>();
 
     static public void add(string userName, string content)
@@ -94,13 +119,13 @@ namespace socialnetwork
 
         MatchCollection match = re.Matches(content);
 
-        Console.WriteLine(match.Count);
-
         for (int i = 0; i < match.Count; i++) {
           HashTags.associate(match[i].ToString(),message);
         }
 
-        _messages.Add(message);
+        lock(_messages) {
+          _messages.Add(message);
+        }
       } catch (InvalidUserName) {
         throw new InvalidUserName();
       }
@@ -108,7 +133,9 @@ namespace socialnetwork
 
     static public void reset()
     {
-      _messages = new List<Message>();
+      lock(_messages) {
+        _messages = new List<Message>();
+      }
     }
   }
 }

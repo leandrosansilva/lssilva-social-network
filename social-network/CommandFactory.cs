@@ -69,6 +69,12 @@ namespace socialnetwork
       }},
       {"wait",delegate(string parameter) {
         return new WaitCommand();
+      }},
+      {"buscar",delegate(string parameter) {
+        return new SearchCommand(parameter);
+      }},
+      {"listar-mencoes",delegate(string parameter) {
+        return new ListMentionsCommand(parameter);
       }}
     };
 

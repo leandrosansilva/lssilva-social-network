@@ -62,10 +62,14 @@ namespace socialnetwork
     static private HashTag getHash(string v)
     {
       try {
-        return _hashTags[v];
-      } catch (System.Collections.Generic.KeyNotFoundException){
+        lock(_hashTags) {
+          return _hashTags[v];
+        }
+      } catch (KeyNotFoundException){
         HashTag hashTag = new HashTag() { hash = v };
-        _hashTags[v] = hashTag;
+        lock(_hashTags) {
+          _hashTags[v] = hashTag;
+        }
         return hashTag;
       }
     }
@@ -77,8 +81,13 @@ namespace socialnetwork
       Console.Write(" ");
       Console.WriteLine(message.content);
 
-      hashTag.messages.Add(message);
-      message.hashTags.Add(hashTag);
+      lock(hashTag.messages) {
+        hashTag.messages.Add(message);
+      }
+
+      lock(message.hashTags) {
+        message.hashTags.Add(hashTag);
+      }
 
       return hashTag;
     }
@@ -90,10 +99,16 @@ namespace socialnetwork
       }
 
       try {
-        List<Message> list = new List<Message>(_hashTags[v].messages);
+        List<Message> list = null;
+
+        lock(_hashTags[v].messages) {
+          list = new List<Message>(_hashTags[v].messages);
+        }
+
         list.Sort(delegate(Message m1, Message m2){
           return - m1.created.CompareTo(m2.created);
         });
+
         return list;
       } catch (System.Collections.Generic.KeyNotFoundException){
         throw new HashTagDoesNotExist();
@@ -104,8 +119,10 @@ namespace socialnetwork
     {
       List<HashTag> list = new List<HashTag>();
 
-      foreach (var h in _hashTags) {
-        list.Add(h.Value);
+      lock(_hashTags) {
+        foreach (var h in _hashTags) {
+          list.Add(h.Value);
+        }
       }
 
       list.Sort(delegate(HashTag h1, HashTag h2) {
@@ -131,7 +148,9 @@ namespace socialnetwork
 
     static public void reset()
     {
-      _hashTags = new Dictionary<string,HashTag>();
+      lock(_hashTags) {
+        _hashTags = new Dictionary<string,HashTag>();
+      }
     }
   }
 }

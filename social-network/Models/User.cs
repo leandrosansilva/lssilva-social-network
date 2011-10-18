@@ -18,6 +18,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace socialnetwork
 {
@@ -51,9 +52,9 @@ namespace socialnetwork
   // classe que representa as estatísticas de um usuário
   public class UserStats
   {
-    private int _followers;
-    private int _followed;
-    private int _messagesCount;
+    private int _followers = 0;
+    private int _followed = 0;
+    private int _messagesCount = 0;
 
     public int followers {
       get {
@@ -68,6 +69,7 @@ namespace socialnetwork
       get {
         return _followed;
       }
+
       set {
         _followed = value;
       }
@@ -125,7 +127,9 @@ namespace socialnetwork
 
     public void addMessage(Message message)
     {
-      _messages.Add(message);
+      lock (_messages) {
+        _messages.Add(message);
+      }
     }
 
     public User()
@@ -135,6 +139,19 @@ namespace socialnetwork
 
   static public class Users
   {
+    public static List<Message> mentions(string userName)
+    {
+      try {
+        lock(_users) {
+          User user = _users[userName];
+        }
+
+        return Messages.resultsOfSearch("@" + userName);
+      } catch (KeyNotFoundException) {
+        throw new InvalidUserName();
+      }
+    }
+
     static private Dictionary<string,User> _users
     = new Dictionary<string,User>();
 
@@ -146,8 +163,8 @@ namespace socialnetwork
       }
 
       try {
-        lock (typeof(Users)) {
-          // duplicando o valor nome, na chave e como atributo :-(
+        // duplicando o valor nome, na chave e como atributo :-(
+        lock(_users) {
           _users.Add(userName,new User() { name = userName });
         }
       } catch (System.ArgumentException) {
@@ -157,9 +174,11 @@ namespace socialnetwork
 
     static public List<Message> getMessages(string userName) {
       try {
-        List<Message> list = new List<Message>(_users[userName].messages);
-        list.Reverse();
-        return list;
+        lock(_users) {
+          List<Message> list = new List<Message>(_users[userName].messages);
+          list.Reverse();
+          return list;
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       }
@@ -167,9 +186,11 @@ namespace socialnetwork
 
     static public User addMessage(string userName, Message message)
     {
-      User user = null;
       try {
-        user = _users[userName];
+        User user = null;
+        lock(_users) {
+          user = _users[userName];
+        }
         user.addMessage(message);
         return user;
       } catch (KeyNotFoundException) {
@@ -182,7 +203,9 @@ namespace socialnetwork
       User followed = null;
 
       try {
-        user = _users[userName];
+        lock(_users) {
+          user = _users[userName];
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
@@ -190,7 +213,9 @@ namespace socialnetwork
       }
 
       try {
-        followed = _users[followName];
+        lock(_users) {
+          followed = _users[followName];
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidFollowed();
       } catch (ArgumentNullException) {
@@ -202,19 +227,38 @@ namespace socialnetwork
         throw new UsersAreTheSame();
       }
 
-      if (user.followed.Contains(followed)) {
+      bool followedFound = true;
+
+      // FIXME: busca na lista: região crítica
+      lock(user.followed) {
+        followedFound = user.followed.Contains(followed);
+      }
+
+      if (followedFound) {
         throw new FollowedAlreadExists();
       }
 
-      user.followed.Add(followed);
-      followed.followers.Add(user);
+      lock(user.followed) {
+        user.followed.Add(followed);
+      }
+
+      lock(followed.followers) {
+        followed.followers.Add(user);
+      }
     }
 
     static public List<User> getFollowed(string userName)
     {
       try {
-        User user = _users[userName];
-        List<User> list = new List<User>(user.followed);
+        User user = null;
+        lock(_users) {
+          user = _users[userName];
+        }
+
+        List<User> list = null;
+        lock(user.followed) {
+          list = new List<User>(user.followed);
+        }
 
         list.Reverse();
 
@@ -229,9 +273,15 @@ namespace socialnetwork
     static public List<User> getFollowers(string userName)
     {
       try {
-        User user = _users[userName];
+        User user = null;
+        lock(_users) {
+          user = _users[userName];
+        }
 
-        List<User> list = new List<User>(user.followers);
+        List<User> list = null;
+        lock(user.followers) {
+          list = new List<User>(user.followers);
+        }
 
         list.Reverse();
 
@@ -275,20 +325,31 @@ namespace socialnetwork
         throw new FollowedDoesNotExist();
       }
 
-      // tudo ok, posso remover 
-      user.followed.Remove(followed);
-      followed.followers.Remove(user);
+      // tudo ok, posso remover
+      lock(user.followed) {
+        user.followed.Remove(followed);
+      }
+
+      lock(followed.followers) {
+        followed.followers.Remove(user);
+      }
     }
 
     static public UserStats getUserStats(string userName)
     {
       try {
-        User user = _users[userName];
+        User user = null;
+
+        lock(_users) {
+          user = _users[userName];
+        }
+
         return new UserStats() {
           followed = user.followed.Count,
           followers = user.followers.Count,
           messagesCount = user.messages.Count
         };
+
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
@@ -303,15 +364,19 @@ namespace socialnetwork
       User user = null;
 
       try {
-        user = _users[userName];
+        lock(_users) {
+          user = _users[userName];
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
         throw new InvalidUserName();
       }
 
-      foreach (User follower in user.followed) {
-        messages.AddRange(follower.messages);
+      lock(user.followed) {
+        foreach (User follower in user.followed) {
+          messages.AddRange(follower.messages);
+        }
       }
 
       // ordena a lista de acordo com a data, mas em ordem inversa
@@ -324,7 +389,10 @@ namespace socialnetwork
 
     static public void reset()
     {
-      _users = new Dictionary<string,User>();
+      lock(_users) {
+        _users = new Dictionary<string,User>();
+      }
+
       Messages.reset();
       HashTags.reset();
     }
