@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=$(find social-network/ | grep cs$)
+FILES=$(find social-network/ | grep '\.cs$')
 OUT=main.exe
 
 mono-csc $FILES -out:$OUT
