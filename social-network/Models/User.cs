@@ -146,6 +146,8 @@ namespace socialnetwork
           User user = _users[userName];
         }
 
+        // uma menção é uma arroba seguida do nome do usuário
+        // @pedro menciona pedro
         return Messages.resultsOfSearch("@" + userName);
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();

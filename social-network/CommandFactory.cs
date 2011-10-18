@@ -87,14 +87,15 @@ namespace socialnetwork
       // o que foi passado, sem o comando, só os dados
       string parameter = null;
 
-      //try {
+      try {
         int i = 0;
         for (;i < commandInput.Length && commandInput[i] != ' '; i++) {
           key += commandInput[i];
         }
-      //}
-      
-      parameter = commandInput.Substring(i).Trim();
+        parameter = commandInput.Substring(i).Trim();
+      } catch (NullReferenceException) {
+        parameter = "";
+      }
       
       try {
         return _commandDelegate[key](parameter);
