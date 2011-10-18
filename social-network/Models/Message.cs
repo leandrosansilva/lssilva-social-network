@@ -82,7 +82,7 @@ namespace socialnetwork
     public static List<Message> resultsOfSearch (string _pattern)
     {
       List<Message> list = new List<Message>();
-      Console.WriteLine("^.*" + _pattern + ".*$");
+      Console.WriteLine(_pattern);
       Regex er = new Regex(_pattern);
 
       // FIXME: busca sequencial, a pior possível :-(
