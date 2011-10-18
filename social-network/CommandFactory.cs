@@ -80,6 +80,8 @@ namespace socialnetwork
 
     static public Command create(string commandInput)
     {
+      Console.WriteLine(commandInput);
+
       // FIXME: usar uma regexp para extrair comando e parametros
 
       // obtenho o comando passado
