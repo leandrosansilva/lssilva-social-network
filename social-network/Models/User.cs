@@ -303,7 +303,9 @@ namespace socialnetwork
       User followed = null;
 
       try {
-        user = _users[userName];
+        lock(_users) {
+          user = _users[userName];
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidUserName();
       } catch (ArgumentNullException) {
@@ -311,7 +313,9 @@ namespace socialnetwork
       }
 
       try {
-        followed = _users[followName];
+        lock(_users) {
+          followed = _users[followName];
+        }
       } catch (KeyNotFoundException) {
         throw new InvalidFollowed();
       } catch (ArgumentNullException) {
@@ -323,7 +327,13 @@ namespace socialnetwork
         throw new UsersAreTheSame();
       }
 
-      if (!user.followed.Contains(followed)) {
+      bool followedExists = true;
+
+      lock(user.followed) {
+        followedExists = user.followed.Contains(followed);
+      }
+
+      if (!followedExists) {
         throw new FollowedDoesNotExist();
       }
 

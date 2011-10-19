@@ -113,9 +113,7 @@ namespace socialnetwork
         User user = Users.addMessage(userName,message);
         message.user = user;
 
-        // FIXME: isto está errado, pois pega # no meio de palavras (malha#ção gera #ção)
-        // e não pega #coca-cola, mas só #coca
-        Regex re = new Regex(@"(#\w+)");
+        Regex re = new Regex(@"\B(#(-|_|\w)+)");
 
         MatchCollection match = re.Matches(content);
 
